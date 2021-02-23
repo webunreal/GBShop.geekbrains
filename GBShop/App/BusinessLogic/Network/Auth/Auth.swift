@@ -1,5 +1,5 @@
 //
-//  Registration.swift
+//  Auth.swift
 //  GBShop
 //
 //  Created by Nikolai Ivanov on 14.02.2021.
@@ -8,34 +8,36 @@
 import Foundation
 import Alamofire
 
-class Registration: AbstractRequestFactory {
+class Auth: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl = URL(string: "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/")!
+    let baseUrl: URL
     
     init(
         errorParser: AbstractErrorParser,
         sessionManager: Session,
-        queue: DispatchQueue = DispatchQueue.global(qos: .utility)) {
+        queue: DispatchQueue,
+        baseUrl: URL) {
         self.errorParser = errorParser
         self.sessionManager = sessionManager
         self.queue = queue
+        self.baseUrl = baseUrl
     }
 }
 
-extension Registration: RegistrationRequestFactory {
-    func register(userName: String, password: String, completionHandler: @escaping (AFDataResponse<RegisterUserResult>) -> Void) {
-        let requestModel = Register(baseUrl: baseUrl, login: userName, password: password)
+extension Auth: AuthRequestFactory {
+    func login(login: String, password: String, completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void) {
+        let requestModel = Login(baseUrl: baseUrl, login: login, password: password)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
 
-extension Registration {
-    struct Register: RequestRouter {
+extension Auth {
+    struct Login: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .get
-        let path: String = "registerUser.json"
+        let path: String = "login.json"
         
         let login: String
         let password: String

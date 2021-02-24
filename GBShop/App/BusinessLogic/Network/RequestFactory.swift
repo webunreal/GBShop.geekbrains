@@ -10,7 +10,7 @@ import Alamofire
 
 class RequestFactory {
     
-    private let baseUrl = URL(string: "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/")!
+    private let baseUrl = URL(string: "https://protected-shelf-18561.herokuapp.com/")!
     
     func makeErrorParser() -> AbstractErrorParser {
         return ErrorParser()
@@ -26,14 +26,14 @@ class RequestFactory {
     
     let sessionQueue = DispatchQueue.global(qos: .default)
     
-    func makeAuthRequestFatory() -> AuthRequestFactory {
+    func makeLogInRequestFatory() -> LogInRequestFactory {
         let errorParser = makeErrorParser()
-        return Auth(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue, baseUrl: baseUrl)
+        return LogIn(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue, baseUrl: baseUrl)
     }
     
-    func makeRegistrationRequestFactory() -> RegistrationRequestFactory {
+    func makeSignUpRequestFactory() -> SignUpRequestFactory {
         let errorParser = makeErrorParser()
-        return Registration(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue, baseUrl: baseUrl)
+        return SignUp(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue, baseUrl: baseUrl)
     }
     
     func makeChangeUserDataRequestFactory() -> ChangeUserDataRequestFactory {
@@ -51,8 +51,8 @@ class RequestFactory {
         return Catalog(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue, baseUrl: baseUrl)
     }
     
-    func makeGoodRequestFactory() -> GoodRequestFactory {
+    func makeProductRequestFactory() -> ProductRequestFactory {
         let errorParser = makeErrorParser()
-        return Good(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue, baseUrl: baseUrl)
+        return Product(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue, baseUrl: baseUrl)
     }
 }

@@ -19,7 +19,7 @@ class CatalogDataTests: XCTestCase {
         catalogData.getCatalog(pageNumber: fakeData.pageNumber, categoryId: fakeData.categoryId) { response in
             switch response.result {
             case .success(let catalogResponse):
-                XCTAssertEqual(catalogResponse[0].productId, 123)
+                XCTAssertEqual(catalogResponse.products[0].productId, 123)
                 catalog.fulfill()
 
             case .failure(let error):

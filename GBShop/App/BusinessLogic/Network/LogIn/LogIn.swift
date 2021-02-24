@@ -1,14 +1,14 @@
 //
-//  Good.swift
+//  LogIn.swift
 //  GBShop
 //
-//  Created by Nikolai Ivanov on 17.02.2021.
+//  Created by Nikolai Ivanov on 14.02.2021.
 //
 
 import Foundation
 import Alamofire
 
-class Good: AbstractRequestFactory {
+class LogIn: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
@@ -26,23 +26,25 @@ class Good: AbstractRequestFactory {
     }
 }
 
-extension Good: GoodRequestFactory {
-    func getGood(productId: Int, completionHandler: @escaping (AFDataResponse<GoodResult>) -> Void) {
-        let requestModel = Good(baseUrl: baseUrl, productId: productId)
+extension LogIn: LogInRequestFactory {
+    func logIn(login: String, password: String, completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void) {
+        let requestModel = LogIn(baseUrl: baseUrl, login: login, password: password)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
 
-extension Good {
-    struct Good: RequestRouter {
+extension LogIn {
+    struct LogIn: RequestRouter {
         let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "getGoodById.json"
+        let method: HTTPMethod = .post
+        let path: String = "login"
         
-        let productId: Int
+        let login: String
+        let password: String
         var parameters: Parameters? {
             return [
-                "product_id" : productId
+                "username": login,
+                "password": password
             ]
         }
     }

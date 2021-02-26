@@ -12,23 +12,20 @@ import Alamofire
 class ProductTests: XCTestCase {
     func testProductGetting() {
         let requestFactory = RequestFactory()
-        let goodData = requestFactory.makeProductRequestFactory()
+        let productData = requestFactory.makeProductRequestFactory()
         let fakeData = FakeData()
-        let good = expectation(description: "Got Product")
+        let product = expectation(description: "Got Product")
         
-        goodData.getProduct(productId: fakeData.productId) { response in
+        productData.getProduct(productId: fakeData.productId) { response in
             switch response.result {
-            case .success(let goodResponse):
-                print(goodResponse)
-                XCTAssertEqual(goodResponse.result, 1)
-                good.fulfill()
+            case .success(let productResponse):
+                XCTAssertEqual(productResponse.result, 1)
+                product.fulfill()
 
             case .failure(let error):
                 XCTFail(error.localizedDescription)
             }
         }
-
         waitForExpectations(timeout: 10)
     }
-
 }

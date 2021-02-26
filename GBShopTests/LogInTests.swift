@@ -16,7 +16,8 @@ class LogInTests: XCTestCase {
         let fakeData = FakeData()
         let logedIn = expectation(description: "Logged In")
         
-        logIn.logIn(login: fakeData.login, password: fakeData.password) { response in
+        logIn.logIn(login: fakeData.login,
+                    password: fakeData.password) { response in
             switch response.result {
             case .success(let login):
                 XCTAssertEqual(login.user.id, 123)

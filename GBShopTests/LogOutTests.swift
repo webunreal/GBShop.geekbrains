@@ -26,7 +26,6 @@ class LogOutTests: XCTestCase {
                 XCTFail(error.localizedDescription)
             }
         }
-
         waitForExpectations(timeout: 10)
     }
 }

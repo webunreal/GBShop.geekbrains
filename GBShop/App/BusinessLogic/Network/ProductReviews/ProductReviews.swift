@@ -1,14 +1,14 @@
 //
-//  Product.swift
+//  ProductReviews.swift
 //  GBShop
 //
-//  Created by Nikolai Ivanov on 17.02.2021.
+//  Created by Nikolai Ivanov on 26.02.2021.
 //
 
 import Foundation
 import Alamofire
 
-class Product: AbstractRequestFactory {
+class ProductReviews: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
@@ -26,19 +26,18 @@ class Product: AbstractRequestFactory {
     }
 }
 
-extension Product: ProductRequestFactory {
-    func getProduct(productId: Int,
-                    completionHandler: @escaping (AFDataResponse<ProductResult>) -> Void) {
-        let requestModel = Product(baseUrl: baseUrl, productId: productId)
+extension ProductReviews: ProductReviewsRequestFactory {
+    func getReviews(productId: Int, completionHandler: @escaping (AFDataResponse<ProductReviewsResult>) -> Void) {
+        let requestModel = ProductReviews(baseUrl: baseUrl, productId: productId)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
 
-extension Product {
-    struct Product: RequestRouter {
+extension ProductReviews {
+    struct ProductReviews: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
-        let path: String = "get_product"
+        let path: String = "get_product_reviews"
         
         let productId: Int
         var parameters: Parameters? {

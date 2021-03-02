@@ -14,7 +14,7 @@ class ChangeUserDataTests: XCTestCase {
         let requestFactory = RequestFactory()
         let changeUserData = requestFactory.makeChangeUserDataRequestFactory()
         let fakeData = FakeData()
-        let changed = expectation(description: "Data Changed")
+        let changedExpectation = expectation(description: "Data Changed")
         
         changeUserData.changeUserData(userId: fakeData.userId,
                                       login: fakeData.login,
@@ -26,7 +26,7 @@ class ChangeUserDataTests: XCTestCase {
             switch response.result {
             case .success(let changeUserDataResponse):
                 XCTAssertEqual(changeUserDataResponse.result, 1)
-                changed.fulfill()
+                changedExpectation.fulfill()
 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

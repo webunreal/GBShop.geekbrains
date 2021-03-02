@@ -14,7 +14,7 @@ class SignUpTests: XCTestCase {
         let requestFactory = RequestFactory()
         let signUp = requestFactory.makeSignUpRequestFactory()
         let fakeData = FakeData()
-        let registered = expectation(description: "Registered")
+        let registeredExpectation = expectation(description: "Registered")
         
         signUp.signUp(userId: fakeData.userId,
                       login: fakeData.login,
@@ -26,7 +26,7 @@ class SignUpTests: XCTestCase {
             switch response.result {
             case .success(let registerResponse):
                 XCTAssertEqual(registerResponse.result, 1)
-                registered.fulfill()
+                registeredExpectation.fulfill()
 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

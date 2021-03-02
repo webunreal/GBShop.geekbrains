@@ -14,13 +14,13 @@ class ApproveProductReviewTests: XCTestCase {
         let requestFactory = RequestFactory()
         let approveReviewData = requestFactory.makeApproveProductReviewRequestFactory()
         let fakeData = FakeData()
-        let approveReview = expectation(description: "Review approved")
+        let approveReviewExpectation = expectation(description: "Review approved")
         
         approveReviewData.approveReview(commentId: fakeData.commentId) { response in
             switch response.result {
             case .success(let approveReviewResponse):
                 XCTAssertEqual(approveReviewResponse.result, 1)
-                approveReview.fulfill()
+                approveReviewExpectation.fulfill()
 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

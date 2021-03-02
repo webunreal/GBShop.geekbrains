@@ -18,7 +18,8 @@ class LogOut: AbstractRequestFactory {
         errorParser: AbstractErrorParser,
         sessionManager: Session,
         queue: DispatchQueue,
-        baseUrl: URL) {
+        baseUrl: URL
+    ) {
         self.errorParser = errorParser
         self.sessionManager = sessionManager
         self.queue = queue
@@ -27,8 +28,10 @@ class LogOut: AbstractRequestFactory {
 }
 
 extension LogOut: LogOutRequestFactory {
-    func logOut(userId: Int,
-                completionHandler: @escaping (AFDataResponse<LogOutResult>) -> Void) {
+    func logOut(
+        userId: Int,
+        completionHandler: @escaping (AFDataResponse<LogOutResult>) -> Void
+    ) {
         let requestModel = LogOut(baseUrl: baseUrl, userId: userId)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
@@ -42,7 +45,7 @@ extension LogOut {
         
         let userId: Int
         var parameters: Parameters? {
-            return [
+            [
                 "id_user": userId
             ]
         }

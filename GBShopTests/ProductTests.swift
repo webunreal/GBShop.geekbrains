@@ -14,13 +14,13 @@ class ProductTests: XCTestCase {
         let requestFactory = RequestFactory()
         let productData = requestFactory.makeProductRequestFactory()
         let fakeData = FakeData()
-        let product = expectation(description: "Got Product")
+        let productExpectation = expectation(description: "Got Product")
         
         productData.getProduct(productId: fakeData.productId) { response in
             switch response.result {
             case .success(let productResponse):
                 XCTAssertEqual(productResponse.result, 1)
-                product.fulfill()
+                productExpectation.fulfill()
 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

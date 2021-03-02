@@ -23,11 +23,11 @@ protocol RequestRouter: URLRequestConvertible {
 
 extension RequestRouter {
     var fullUrl: URL {
-        return baseUrl.appendingPathComponent(path)
+        baseUrl.appendingPathComponent(path)
     }
     
     var encoding: RequestRouterEncoding {
-        return .url
+        .url
     }
     
     func asURLRequest() throws -> URLRequest {

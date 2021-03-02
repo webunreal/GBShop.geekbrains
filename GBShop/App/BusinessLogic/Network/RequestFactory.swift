@@ -11,9 +11,9 @@ import Alamofire
 class RequestFactory {
     
     private let baseUrl = URL(string: "https://protected-shelf-18561.herokuapp.com/")!
-    
+        
     func makeErrorParser() -> AbstractErrorParser {
-        return ErrorParser()
+        ErrorParser()
     }
     
     lazy var commonSession: Session = {
@@ -74,5 +74,20 @@ class RequestFactory {
     func makeDeleteProductReviewRequestFactory() -> DeleteProductReviewRequestFactory {
         let errorParser = makeErrorParser()
         return DeleteProductReview(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue, baseUrl: baseUrl)
+    }
+    
+    func makeAddToBasketRequestFactory() -> AddToBasketRequestFactory {
+        let errorParser = makeErrorParser()
+        return AddToBasket(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue, baseUrl: baseUrl)
+    }
+
+    func makeDeleteFromBasketRequestFactory() -> DeleteFromBasketRequestFactory {
+        let errorParser = makeErrorParser()
+        return DeleteFromBasket(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue, baseUrl: baseUrl)
+    }
+    
+    func makePayBasketRequestFactory() -> PayBasketRequestFactory {
+        let errorParser = makeErrorParser()
+        return PayBasket(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue, baseUrl: baseUrl)
     }
 }

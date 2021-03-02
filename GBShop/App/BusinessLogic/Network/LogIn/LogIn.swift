@@ -18,7 +18,8 @@ class LogIn: AbstractRequestFactory {
         errorParser: AbstractErrorParser,
         sessionManager: Session,
         queue: DispatchQueue,
-        baseUrl: URL) {
+        baseUrl: URL
+    ) {
         self.errorParser = errorParser
         self.sessionManager = sessionManager
         self.queue = queue
@@ -27,9 +28,11 @@ class LogIn: AbstractRequestFactory {
 }
 
 extension LogIn: LogInRequestFactory {
-    func logIn(login: String,
-               password: String,
-               completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void) {
+    func logIn(
+        login: String,
+        password: String,
+        completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void
+    ) {
         let requestModel = LogIn(baseUrl: baseUrl, login: login, password: password)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
@@ -44,7 +47,7 @@ extension LogIn {
         let login: String
         let password: String
         var parameters: Parameters? {
-            return [
+            [
                 "username": login,
                 "password": password
             ]

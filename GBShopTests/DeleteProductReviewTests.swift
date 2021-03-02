@@ -14,13 +14,13 @@ class DeleteProductReviewTests: XCTestCase {
         let requestFactory = RequestFactory()
         let deleteReviewData = requestFactory.makeDeleteProductReviewRequestFactory()
         let fakeData = FakeData()
-        let deleteReview = expectation(description: "Review approved")
+        let deleteReviewExpectation = expectation(description: "Review approved")
         
         deleteReviewData.deleteReview(commentId: fakeData.commentId) { response in
             switch response.result {
             case .success(let deleteReviewResponse):
                 XCTAssertEqual(deleteReviewResponse.result, 1)
-                deleteReview.fulfill()
+                deleteReviewExpectation.fulfill()
 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

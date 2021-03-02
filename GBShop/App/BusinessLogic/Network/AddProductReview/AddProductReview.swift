@@ -18,7 +18,8 @@ class AddProductReview: AbstractRequestFactory {
         errorParser: AbstractErrorParser,
         sessionManager: Session,
         queue: DispatchQueue,
-        baseUrl: URL) {
+        baseUrl: URL
+    ) {
         self.errorParser = errorParser
         self.sessionManager = sessionManager
         self.queue = queue
@@ -27,9 +28,11 @@ class AddProductReview: AbstractRequestFactory {
 }
 
 extension AddProductReview: AddProductReviewRequestFactory {
-    func addReview(userId: Int,
-                   text: String,
-                   completionHandler: @escaping (AFDataResponse<AddProductReviewResult>) -> Void) {
+    func addReview(
+        userId: Int,
+        text: String,
+        completionHandler: @escaping (AFDataResponse<AddProductReviewResult>) -> Void
+    ) {
         let requestModel = AddProductReview(baseUrl: baseUrl,
                                             userId: userId,
                                             text: text)
@@ -46,7 +49,7 @@ extension AddProductReview {
         let userId: Int
         let text: String
         var parameters: Parameters? {
-            return [
+            [
                 "id_user": userId,
                 "text": text
             ]

@@ -1,5 +1,5 @@
 //
-//  GoodTests.swift
+//  ProductTests.swift
 //  GBShopTests
 //
 //  Created by Nikolai Ivanov on 16.02.2021.
@@ -9,14 +9,14 @@ import XCTest
 import Alamofire
 @testable import GBShop
 
-class GoodTests: XCTestCase {
-    func testGoodGetting() {
+class ProductTests: XCTestCase {
+    func testProductGetting() {
         let requestFactory = RequestFactory()
-        let goodData = requestFactory.makeGoodRequestFactory()
+        let goodData = requestFactory.makeProductRequestFactory()
         let fakeData = FakeData()
-        let good = expectation(description: "Got Good")
+        let good = expectation(description: "Got Product")
         
-        goodData.getGood(productId: fakeData.productId) { response in
+        goodData.getProduct(productId: fakeData.productId) { response in
             switch response.result {
             case .success(let goodResponse):
                 print(goodResponse)

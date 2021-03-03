@@ -8,5 +8,5 @@
 import Foundation
 
 struct ChangeUserDataResult: Codable {
-    var result: Int
+    let result: Int
 }

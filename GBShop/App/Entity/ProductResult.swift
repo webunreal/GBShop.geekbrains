@@ -1,5 +1,5 @@
 //
-//  GoodResult.swift
+//  ProductResult.swift
 //  GBShop
 //
 //  Created by Nikolai Ivanov on 16.02.2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GoodResult: Codable {
+struct ProductResult: Codable {
     let result: Int
     let productName: String
     let productPrice: Int

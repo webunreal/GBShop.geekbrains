@@ -18,4 +18,6 @@ struct FakeData {
     let pageNumber = 1
     let categoryId = 1
     let productId = 1
+    let reviewText = "Текст отзыва"
+    let commentId = 123
 }

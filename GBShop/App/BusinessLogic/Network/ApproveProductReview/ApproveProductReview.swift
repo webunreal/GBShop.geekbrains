@@ -1,14 +1,14 @@
 //
-//  Product.swift
+//  ApproveProductReview.swift
 //  GBShop
 //
-//  Created by Nikolai Ivanov on 17.02.2021.
+//  Created by Nikolai Ivanov on 26.02.2021.
 //
 
 import Foundation
 import Alamofire
 
-class Product: AbstractRequestFactory {
+class ApproveProductReview: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
@@ -26,24 +26,23 @@ class Product: AbstractRequestFactory {
     }
 }
 
-extension Product: ProductRequestFactory {
-    func getProduct(productId: Int,
-                    completionHandler: @escaping (AFDataResponse<ProductResult>) -> Void) {
-        let requestModel = Product(baseUrl: baseUrl, productId: productId)
+extension ApproveProductReview: ApproveProductReviewRequestFactory {
+    func approveReview(commentId: Int, completionHandler: @escaping (AFDataResponse<ApproveProductReviewResult>) -> Void) {
+        let requestModel = ApproveProductReview(baseUrl: baseUrl, commentId: commentId)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
 
-extension Product {
-    struct Product: RequestRouter {
+extension ApproveProductReview {
+    struct ApproveProductReview: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
-        let path: String = "get_product"
+        let path: String = "approve_product_review"
         
-        let productId: Int
+        let commentId: Int
         var parameters: Parameters? {
             return [
-                "id_product": productId
+                "id_comment": commentId
             ]
         }
     }

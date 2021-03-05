@@ -27,8 +27,21 @@ class ChangeUserData: AbstractRequestFactory {
 }
 
 extension ChangeUserData: ChangeUserDataRequestFactory {
-    func changeUserData(userId: Int, login: String, password: String, email: String, gender: String, creditCard: String, bio: String, completionHandler: @escaping (AFDataResponse<ChangeUserDataResult>) -> Void) {
-        let requestModel = ChangeUserData(baseUrl: baseUrl, userId: userId, login: login, password: password, email: email, gender: gender, creditCard: creditCard, bio: bio)
+    func changeUserData(userId: Int,
+                        login: String,
+                        password: String,
+                        email: String,
+                        gender: String,
+                        creditCard: String,
+                        bio: String,
+                        completionHandler: @escaping (AFDataResponse<ChangeUserDataResult>) -> Void) {
+        let requestModel = ChangeUserData(baseUrl: baseUrl,
+                                          userId: userId,
+                                          login: login,
+                                          password: password,
+                                          email: email,
+                                          gender: gender,
+                                          creditCard: creditCard, bio: bio)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
@@ -38,7 +51,6 @@ extension ChangeUserData {
         let baseUrl: URL
         let method: HTTPMethod = .post
         let path: String = "change_user_data"
-        
         let userId: Int
         let login: String
         let password: String
@@ -48,13 +60,13 @@ extension ChangeUserData {
         let bio: String
         var parameters: Parameters? {
             return [
-                "id_user" : userId,
-                "username" : login,
-                "password" : password,
-                "email" : email,
+                "id_user": userId,
+                "username": login,
+                "password": password,
+                "email": email,
                 "gender": gender,
-                "credit_card" : creditCard,
-                "bio" : bio
+                "credit_card": creditCard,
+                "bio": bio
             ]
         }
     }

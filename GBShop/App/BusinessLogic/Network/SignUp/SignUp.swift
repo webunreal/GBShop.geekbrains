@@ -27,7 +27,14 @@ class SignUp: AbstractRequestFactory {
 }
 
 extension SignUp: SignUpRequestFactory {
-    func signUp(userId: Int, login: String, password: String, email: String, gender: String, creditCard: String, bio: String, completionHandler: @escaping (AFDataResponse<SignUpResult>) -> Void) {
+    func signUp(userId: Int,
+                login: String,
+                password: String,
+                email: String,
+                gender: String,
+                creditCard: String,
+                bio: String,
+                completionHandler: @escaping (AFDataResponse<SignUpResult>) -> Void) {
         let requestModel = SignUp(baseUrl: baseUrl, userId: userId, login: login, password: password, email: email, gender: gender, creditCard: creditCard, bio: bio)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
@@ -48,13 +55,13 @@ extension SignUp {
         let bio: String
         var parameters: Parameters? {
             return [
-                "id_user" : userId,
-                "username" : login,
-                "password" : password,
-                "email" : email,
+                "id_user": userId,
+                "username": login,
+                "password": password,
+                "email": email,
                 "gender": gender,
-                "credit_card" : creditCard,
-                "bio" : bio
+                "credit_card": creditCard,
+                "bio": bio
             ]
         }
     }

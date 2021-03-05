@@ -1,14 +1,14 @@
 //
-//  Product.swift
+//  DeleteProductReview.swift
 //  GBShop
 //
-//  Created by Nikolai Ivanov on 17.02.2021.
+//  Created by Nikolai Ivanov on 26.02.2021.
 //
 
 import Foundation
 import Alamofire
 
-class Product: AbstractRequestFactory {
+class DeleteProductReview: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
@@ -26,24 +26,23 @@ class Product: AbstractRequestFactory {
     }
 }
 
-extension Product: ProductRequestFactory {
-    func getProduct(productId: Int,
-                    completionHandler: @escaping (AFDataResponse<ProductResult>) -> Void) {
-        let requestModel = Product(baseUrl: baseUrl, productId: productId)
+extension DeleteProductReview: DeleteProductReviewRequestFactory {
+    func deleteReview(commentId: Int, completionHandler: @escaping (AFDataResponse<DeleteProductReviewResult>) -> Void) {
+        let requestModel = DeleteProductReview(baseUrl: baseUrl, commentId: commentId)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
 
-extension Product {
-    struct Product: RequestRouter {
+extension DeleteProductReview {
+    struct DeleteProductReview: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
-        let path: String = "get_product"
+        let path: String = "delete_product_review"
         
-        let productId: Int
+        let commentId: Int
         var parameters: Parameters? {
             return [
-                "id_product": productId
+                "id_comment": commentId
             ]
         }
     }

@@ -16,7 +16,13 @@ class ChangeUserDataTests: XCTestCase {
         let fakeData = FakeData()
         let changed = expectation(description: "Data Changed")
         
-        changeUserData.changeUserData(userId: fakeData.userId, login: fakeData.login, password: fakeData.password, email: fakeData.email, gender: fakeData.gender, creditCard: fakeData.creditCard, bio: fakeData.bio) { response in
+        changeUserData.changeUserData(userId: fakeData.userId,
+                                      login: fakeData.login,
+                                      password: fakeData.password,
+                                      email: fakeData.email,
+                                      gender: fakeData.gender,
+                                      creditCard: fakeData.creditCard,
+                                      bio: fakeData.bio) { response in
             switch response.result {
             case .success(let changeUserDataResponse):
                 XCTAssertEqual(changeUserDataResponse.result, 1)
@@ -26,7 +32,6 @@ class ChangeUserDataTests: XCTestCase {
                 XCTFail(error.localizedDescription)
             }
         }
-
         waitForExpectations(timeout: 10)
     }
 }

@@ -16,7 +16,8 @@ class CatalogDataTests: XCTestCase {
         let fakeData = FakeData()
         let catalog = expectation(description: "Got Catalog")
         
-        catalogData.getCatalog(pageNumber: fakeData.pageNumber, categoryId: fakeData.categoryId) { response in
+        catalogData.getCatalog(pageNumber: fakeData.pageNumber,
+                               categoryId: fakeData.categoryId) { response in
             switch response.result {
             case .success(let catalogResponse):
                 XCTAssertEqual(catalogResponse.products[0].productId, 123)
@@ -26,7 +27,6 @@ class CatalogDataTests: XCTestCase {
                 XCTFail(error.localizedDescription)
             }
         }
-
         waitForExpectations(timeout: 10)
     }
 }

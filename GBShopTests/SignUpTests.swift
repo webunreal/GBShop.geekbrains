@@ -16,7 +16,13 @@ class SignUpTests: XCTestCase {
         let fakeData = FakeData()
         let registered = expectation(description: "Registered")
         
-        signUp.signUp(userId: fakeData.userId, login: fakeData.login, password: fakeData.password, email: fakeData.email, gender: fakeData.gender, creditCard: fakeData.creditCard, bio: fakeData.bio) { response in
+        signUp.signUp(userId: fakeData.userId,
+                      login: fakeData.login,
+                      password: fakeData.password,
+                      email: fakeData.email,
+                      gender: fakeData.gender,
+                      creditCard: fakeData.creditCard,
+                      bio: fakeData.bio) { response in
             switch response.result {
             case .success(let registerResponse):
                 XCTAssertEqual(registerResponse.result, 1)
@@ -26,7 +32,6 @@ class SignUpTests: XCTestCase {
                 XCTFail(error.localizedDescription)
             }
         }
-
         waitForExpectations(timeout: 10)
     }
 }

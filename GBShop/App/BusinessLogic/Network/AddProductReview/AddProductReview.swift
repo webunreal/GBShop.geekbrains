@@ -1,14 +1,14 @@
 //
-//  LogOut.swift
+//  AddProductReview.swift
 //  GBShop
 //
-//  Created by Nikolai Ivanov on 14.02.2021.
+//  Created by Nikolai Ivanov on 26.02.2021.
 //
 
 import Foundation
 import Alamofire
 
-class LogOut: AbstractRequestFactory {
+class AddProductReview: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
@@ -26,24 +26,29 @@ class LogOut: AbstractRequestFactory {
     }
 }
 
-extension LogOut: LogOutRequestFactory {
-    func logOut(userId: Int,
-                completionHandler: @escaping (AFDataResponse<LogOutResult>) -> Void) {
-        let requestModel = LogOut(baseUrl: baseUrl, userId: userId)
+extension AddProductReview: AddProductReviewRequestFactory {
+    func addReview(userId: Int,
+                   text: String,
+                   completionHandler: @escaping (AFDataResponse<AddProductReviewResult>) -> Void) {
+        let requestModel = AddProductReview(baseUrl: baseUrl,
+                                            userId: userId,
+                                            text: text)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
 
-extension LogOut {
-    struct LogOut: RequestRouter {
+extension AddProductReview {
+    struct AddProductReview: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
-        let path: String = "logout"
+        let path: String = "add_product_review"
         
         let userId: Int
+        let text: String
         var parameters: Parameters? {
             return [
-                "id_user": userId
+                "id_user": userId,
+                "text": text
             ]
         }
     }

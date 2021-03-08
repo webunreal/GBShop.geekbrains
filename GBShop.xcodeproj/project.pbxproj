@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6052DACD25F5398D00715061 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6052DACC25F5398D00715061 /* LoginViewController.swift */; };
+		6052DAD525F539DB00715061 /* UserDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6052DAD425F539DB00715061 /* UserDataViewController.swift */; };
+		6052DADA25F539EE00715061 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6052DAD925F539EE00715061 /* UserInfoViewController.swift */; };
+		6052DAE025F558C400715061 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6052DADF25F558C400715061 /* UITextFieldExtension.swift */; };
+		6052DAE525F5849100715061 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6052DAE425F5849100715061 /* UIViewControllerExtension.swift */; };
 		605F45A925D2EF100044ED81 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605F45A825D2EF100044ED81 /* AppDelegate.swift */; };
 		605F45AB25D2EF100044ED81 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605F45AA25D2EF100044ED81 /* SceneDelegate.swift */; };
 		605F45B225D2EF130044ED81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 605F45B125D2EF130044ED81 /* Assets.xcassets */; };
@@ -96,6 +101,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6052DACC25F5398D00715061 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		6052DAD425F539DB00715061 /* UserDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewController.swift; sourceTree = "<group>"; };
+		6052DAD925F539EE00715061 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		6052DADF25F558C400715061 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
+		6052DAE425F5849100715061 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		605F45A525D2EF100044ED81 /* GBShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GBShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		605F45A825D2EF100044ED81 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		605F45AA25D2EF100044ED81 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -198,6 +208,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6052DACB25F5397100715061 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6052DACC25F5398D00715061 /* LoginViewController.swift */,
+				6052DAD425F539DB00715061 /* UserDataViewController.swift */,
+				6052DAD925F539EE00715061 /* UserInfoViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6052DADE25F558A300715061 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6052DADF25F558C400715061 /* UITextFieldExtension.swift */,
+				6052DAE425F5849100715061 /* UIViewControllerExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		605F459C25D2EF100044ED81 = {
 			isa = PBXGroup;
 			children = (
@@ -315,6 +344,8 @@
 		605F45DF25D2F17E0044ED81 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				6052DACB25F5397100715061 /* Controller */,
+				6052DADE25F558A300715061 /* Extension */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -652,6 +683,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60F7F9E625E908C700BC12A2 /* AddProductReviewResult.swift in Sources */,
+				6052DAE025F558C400715061 /* UITextFieldExtension.swift in Sources */,
 				60E9C78C25D9352900D2FB38 /* RequestFactory.swift in Sources */,
 				60D7517B25EEC82300968C0A /* DeleteFromBasket.swift in Sources */,
 				60F7F9FE25E90E0600BC12A2 /* ProductReviewsFactory.swift in Sources */,
@@ -661,6 +693,7 @@
 				60E9C75525D9313500D2FB38 /* AbstractErrorParser.swift in Sources */,
 				60E9C82925DC603000D2FB38 /* Catalog.swift in Sources */,
 				60D7519825EECCDD00968C0A /* PayBasketResult.swift in Sources */,
+				6052DADA25F539EE00715061 /* UserInfoViewController.swift in Sources */,
 				60E9C76225D9322D00D2FB38 /* ResponseCodable.swift in Sources */,
 				60E9C79625D93B7F00D2FB38 /* LogOut.swift in Sources */,
 				60E9C78225D934EB00D2FB38 /* LoginRequestFactory.swift in Sources */,
@@ -691,15 +724,18 @@
 				60E9C81525DC5EAE00D2FB38 /* CatalogResult.swift in Sources */,
 				60E9C82E25DC69B600D2FB38 /* ProductResult.swift in Sources */,
 				60E9C7B225D942B200D2FB38 /* LogOutRequestFactory.swift in Sources */,
+				6052DAE525F5849100715061 /* UIViewControllerExtension.swift in Sources */,
 				605F45AB25D2EF100044ED81 /* SceneDelegate.swift in Sources */,
 				60F7F9F025E908E800BC12A2 /* ApproveProductReviewResult.swift in Sources */,
 				60F7FA2825E91F5100BC12A2 /* ApproveProductReviewRequestFactory.swift in Sources */,
+				6052DACD25F5398D00715061 /* LoginViewController.swift in Sources */,
 				60E9C83425DC6A6700D2FB38 /* ProductRequestFactory.swift in Sources */,
 				60F7FA3025E91F5800BC12A2 /* ApproveProductReview.swift in Sources */,
 				60D7516025EEC6F700968C0A /* AddToBasketResult.swift in Sources */,
 				60E9C7BC25D9442400D2FB38 /* ChangeUserDataResult.swift in Sources */,
 				60E9C76D25D9341900D2FB38 /* AbstractRequestFactory.swift in Sources */,
 				60E9C7AD25D93D7300D2FB38 /* SignUpRequestFactory.swift in Sources */,
+				6052DAD525F539DB00715061 /* UserDataViewController.swift in Sources */,
 				60E9C75D25D9316A00D2FB38 /* ErrorParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

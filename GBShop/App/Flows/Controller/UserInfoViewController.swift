@@ -8,7 +8,7 @@
 import UIKit
 
 class UserInfoViewController: UIViewController {
-    public var user: User?
+    public var user = UserInfo.shared.user
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
@@ -52,7 +52,7 @@ class UserInfoViewController: UIViewController {
         setupAutoLayout()
     }
     
-    private func setupViews() {
+    private func setupViews() {        
         view.backgroundColor = UIColor.white
         view.layoutIfNeeded()
         
@@ -63,9 +63,9 @@ class UserInfoViewController: UIViewController {
             height: view.frame.size.height
         )
         
-        usernameLabel = makeTextFieldTitle(text: "Username: \(user?.login ?? "")")
-        firstNameLabel = makeTextFieldTitle(text: "Name: \(user?.name ?? "")")
-        lastNameLabel = makeTextFieldTitle(text: "Last name: \(user?.lastname ?? "")")
+        usernameLabel = makeTextFieldTitle(text: "Username: \(user.login)")
+        firstNameLabel = makeTextFieldTitle(text: "Name: \(user.name)")
+        lastNameLabel = makeTextFieldTitle(text: "Last name: \(user.lastname)")
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)

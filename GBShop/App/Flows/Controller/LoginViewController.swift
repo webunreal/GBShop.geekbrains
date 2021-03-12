@@ -228,10 +228,10 @@ class LoginViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch response.result {
                     case .success(let login):
-                        let userInfoViewController = UserInfoViewController()
-                        userInfoViewController.user = login.user
-                        userInfoViewController.modalPresentationStyle = .fullScreen
-                        self.present(userInfoViewController, animated: true, completion: nil)
+                        let navigationController = UINavigationController(rootViewController: CatalogViewController())
+                        navigationController.modalPresentationStyle = .fullScreen
+                        UserInfo.shared.user = login.user
+                        self.present(navigationController, animated: true, completion: nil)
                     case .failure(let error):
                         let alert = UIAlertController(title: "Error", message: error.errorDescription, preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default) { _ in

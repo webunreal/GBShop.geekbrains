@@ -14,14 +14,14 @@ class AddProductReviewTests: XCTestCase {
         let requestFactory = RequestFactory()
         let addReviewData = requestFactory.makeAddProductReviewRequestFactory()
         let fakeData = FakeData()
-        let addReview = expectation(description: "Review added")
+        let addReviewExpectation = expectation(description: "Review added")
         
         addReviewData.addReview(userId: fakeData.userId,
                                 text: fakeData.reviewText) { response in
             switch response.result {
             case .success(let addReviewResponse):
                 XCTAssertEqual(addReviewResponse.result, 1)
-                addReview.fulfill()
+                addReviewExpectation.fulfill()
 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

@@ -1,14 +1,14 @@
 //
-//  ApproveProductReview.swift
+//  AddToBasket.swift
 //  GBShop
 //
-//  Created by Nikolai Ivanov on 26.02.2021.
+//  Created by Nikolai Ivanov on 02.03.2021.
 //
 
 import Foundation
 import Alamofire
 
-class ApproveProductReview: AbstractRequestFactory {
+class AddToBasket: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
@@ -27,23 +27,29 @@ class ApproveProductReview: AbstractRequestFactory {
     }
 }
 
-extension ApproveProductReview: ApproveProductReviewRequestFactory {
-    func approveReview(commentId: Int, completionHandler: @escaping (AFDataResponse<ApproveProductReviewResult>) -> Void) {
-        let requestModel = ApproveProductReview(baseUrl: baseUrl, commentId: commentId)
+extension AddToBasket: AddToBasketRequestFactory {
+    func addToBasket(
+        productId: Int,
+        quantity: Int,
+        completionHandler: @escaping (AFDataResponse<AddToBasketResult>) -> Void
+    ) {
+        let requestModel = AddToBasket(baseUrl: baseUrl, productId: productId, quantity: 1)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
 
-extension ApproveProductReview {
-    struct ApproveProductReview: RequestRouter {
+extension AddToBasket {
+    struct AddToBasket: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
-        let path: String = "approve_product_review"
+        let path: String = "add_to_basket"
         
-        let commentId: Int
+        let productId: Int
+        let quantity: Int
         var parameters: Parameters? {
             [
-                "id_comment": commentId
+                "id_product": productId,
+                "quantity": quantity
             ]
         }
     }

@@ -17,7 +17,8 @@ struct FakeData {
     let bio = "This is good! I think I will switch to another language"
     let pageNumber = 1
     let categoryId = 1
-    let productId = 1
+    let productId = 123
     let reviewText = "Текст отзыва"
     let commentId = 123
+    let quantity = 1
 }

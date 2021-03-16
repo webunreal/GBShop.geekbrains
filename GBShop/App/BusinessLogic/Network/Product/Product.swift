@@ -18,7 +18,8 @@ class Product: AbstractRequestFactory {
         errorParser: AbstractErrorParser,
         sessionManager: Session,
         queue: DispatchQueue,
-        baseUrl: URL) {
+        baseUrl: URL
+    ) {
         self.errorParser = errorParser
         self.sessionManager = sessionManager
         self.queue = queue
@@ -27,8 +28,10 @@ class Product: AbstractRequestFactory {
 }
 
 extension Product: ProductRequestFactory {
-    func getProduct(productId: Int,
-                    completionHandler: @escaping (AFDataResponse<ProductResult>) -> Void) {
+    func getProduct(
+        productId: Int,
+        completionHandler: @escaping (AFDataResponse<ProductResult>) -> Void
+    ) {
         let requestModel = Product(baseUrl: baseUrl, productId: productId)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
@@ -42,7 +45,7 @@ extension Product {
         
         let productId: Int
         var parameters: Parameters? {
-            return [
+            [
                 "id_product": productId
             ]
         }

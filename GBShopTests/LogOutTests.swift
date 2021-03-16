@@ -14,13 +14,13 @@ class LogOutTests: XCTestCase {
         let requestFactory = RequestFactory()
         let logOut = requestFactory.makeLogOutRequestFactory()
         let fakeData = FakeData()
-        let loggedOut = expectation(description: "Logged Out")
+        let loggedOutExpectation = expectation(description: "Logged Out")
         
         logOut.logOut(userId: fakeData.userId) { response in
             switch response.result {
             case .success(let logOutResponse):
                 XCTAssertEqual(logOutResponse.result, 1)
-                loggedOut.fulfill()
+                loggedOutExpectation.fulfill()
 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

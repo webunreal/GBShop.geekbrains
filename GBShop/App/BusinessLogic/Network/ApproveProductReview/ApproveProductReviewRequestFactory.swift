@@ -9,6 +9,8 @@ import Foundation
 import Alamofire
 
 protocol ApproveProductReviewRequestFactory {
-    func approveReview(commentId: Int,
-                       completionHandler: @escaping (AFDataResponse<ApproveProductReviewResult>) -> Void)
+    func approveReview(
+        commentId: Int,
+        completionHandler: @escaping (AFDataResponse<ApproveProductReviewResult>) -> Void
+    )
 }

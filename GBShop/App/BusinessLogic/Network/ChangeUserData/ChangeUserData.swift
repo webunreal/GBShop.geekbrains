@@ -18,7 +18,8 @@ class ChangeUserData: AbstractRequestFactory {
         errorParser: AbstractErrorParser,
         sessionManager: Session,
         queue: DispatchQueue,
-        baseUrl: URL) {
+        baseUrl: URL
+    ) {
         self.errorParser = errorParser
         self.sessionManager = sessionManager
         self.queue = queue
@@ -27,21 +28,26 @@ class ChangeUserData: AbstractRequestFactory {
 }
 
 extension ChangeUserData: ChangeUserDataRequestFactory {
-    func changeUserData(userId: Int,
-                        login: String,
-                        password: String,
-                        email: String,
-                        gender: String,
-                        creditCard: String,
-                        bio: String,
-                        completionHandler: @escaping (AFDataResponse<ChangeUserDataResult>) -> Void) {
-        let requestModel = ChangeUserData(baseUrl: baseUrl,
-                                          userId: userId,
-                                          login: login,
-                                          password: password,
-                                          email: email,
-                                          gender: gender,
-                                          creditCard: creditCard, bio: bio)
+    func changeUserData(
+        userId: Int,
+        login: String,
+        password: String,
+        email: String,
+        gender: String,
+        creditCard: String,
+        bio: String,
+        completionHandler: @escaping (AFDataResponse<ChangeUserDataResult>) -> Void
+    ) {
+        let requestModel = ChangeUserData(
+            baseUrl: baseUrl,
+            userId: userId,
+            login: login,
+            password: password,
+            email: email,
+            gender: gender,
+            creditCard: creditCard,
+            bio: bio
+        )
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
@@ -59,7 +65,7 @@ extension ChangeUserData {
         let creditCard: String
         let bio: String
         var parameters: Parameters? {
-            return [
+            [
                 "id_user": userId,
                 "username": login,
                 "password": password,

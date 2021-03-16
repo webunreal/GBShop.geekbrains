@@ -1,14 +1,14 @@
 //
-//  ApproveProductReview.swift
+//  DeleteFromBasket.swift
 //  GBShop
 //
-//  Created by Nikolai Ivanov on 26.02.2021.
+//  Created by Nikolai Ivanov on 02.03.2021.
 //
 
 import Foundation
 import Alamofire
 
-class ApproveProductReview: AbstractRequestFactory {
+class DeleteFromBasket: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
@@ -27,23 +27,26 @@ class ApproveProductReview: AbstractRequestFactory {
     }
 }
 
-extension ApproveProductReview: ApproveProductReviewRequestFactory {
-    func approveReview(commentId: Int, completionHandler: @escaping (AFDataResponse<ApproveProductReviewResult>) -> Void) {
-        let requestModel = ApproveProductReview(baseUrl: baseUrl, commentId: commentId)
+extension DeleteFromBasket: DeleteFromBasketRequestFactory {
+    func deleteFromBasket(
+        productId: Int,
+        completionHandler: @escaping (AFDataResponse<DeleteFromBasketResult>) -> Void
+    ) {
+        let requestModel = DeleteFromBasket(baseUrl: baseUrl, productId: productId)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
 
-extension ApproveProductReview {
-    struct ApproveProductReview: RequestRouter {
+extension DeleteFromBasket {
+    struct DeleteFromBasket: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
-        let path: String = "approve_product_review"
+        let path: String = "delete_from_basket"
         
-        let commentId: Int
+        let productId: Int
         var parameters: Parameters? {
             [
-                "id_comment": commentId
+                "id_product": productId
             ]
         }
     }

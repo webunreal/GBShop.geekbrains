@@ -18,7 +18,8 @@ class ProductReviews: AbstractRequestFactory {
         errorParser: AbstractErrorParser,
         sessionManager: Session,
         queue: DispatchQueue,
-        baseUrl: URL) {
+        baseUrl: URL
+    ) {
         self.errorParser = errorParser
         self.sessionManager = sessionManager
         self.queue = queue
@@ -41,7 +42,7 @@ extension ProductReviews {
         
         let productId: Int
         var parameters: Parameters? {
-            return [
+            [
                 "id_product": productId
             ]
         }

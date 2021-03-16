@@ -18,7 +18,8 @@ class Catalog: AbstractRequestFactory {
         errorParser: AbstractErrorParser,
         sessionManager: Session,
         queue: DispatchQueue,
-        baseUrl: URL) {
+        baseUrl: URL
+    ) {
         self.errorParser = errorParser
         self.sessionManager = sessionManager
         self.queue = queue
@@ -27,9 +28,11 @@ class Catalog: AbstractRequestFactory {
 }
 
 extension Catalog: CatalogRequestFactory {
-    func getCatalog(pageNumber: Int,
-                    categoryId: Int,
-                    completionHandler: @escaping (AFDataResponse<CatalogResult>) -> Void) {
+    func getCatalog(
+        pageNumber: Int,
+        categoryId: Int,
+        completionHandler: @escaping (AFDataResponse<CatalogResult>) -> Void
+    ) {
         let requestModel = Catalog(baseUrl: baseUrl, pageNumber: pageNumber, categoryId: categoryId)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
@@ -44,7 +47,7 @@ extension Catalog {
         let pageNumber: Int
         let categoryId: Int
         var parameters: Parameters? {
-            return [
+            [
                 "page_number": pageNumber,
                 "id_category": categoryId
             ]

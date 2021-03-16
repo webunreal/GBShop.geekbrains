@@ -13,14 +13,14 @@ class ResponseCodableTests: XCTestCase {
     
     func testShouldDownloadAndParse() {
         let errorParser = ErrorParserStub()
-        let downloaded = expectation(description: "Data downloaded")
+        let downloadedExpectation = expectation(description: "Data downloaded")
         
         AF
             .request("https://jsonplaceholder.typicode.com/posts/1")
             .responseCodable(errorParser: errorParser) { (response: DataResponse<PostStub, AFError>) in
                 switch response.result {
-                case .success(_):
-                    downloaded.fulfill()
+                case .success:
+                    downloadedExpectation.fulfill()
                 case .failure(let error):
                     XCTFail(error.localizedDescription)
                 }
@@ -43,11 +43,10 @@ enum ApiErrorStub: Error {
 
 struct ErrorParserStub: AbstractErrorParser {
     func parse(_ result: Error) -> Error {
-        return ApiErrorStub.fatalError
+        ApiErrorStub.fatalError
     }
     
     func parse(response: HTTPURLResponse?, data: Data?, error: Error?) -> Error? {
-        return error
+        error
     }
 }
-

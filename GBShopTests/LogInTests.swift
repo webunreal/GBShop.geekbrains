@@ -14,14 +14,14 @@ class LogInTests: XCTestCase {
         let requestFactory = RequestFactory()
         let logIn = requestFactory.makeLogInRequestFatory()
         let fakeData = FakeData()
-        let logedIn = expectation(description: "Logged In")
+        let logedInExpectation = expectation(description: "Logged In")
         
         logIn.logIn(login: fakeData.login,
                     password: fakeData.password) { response in
             switch response.result {
             case .success(let login):
                 XCTAssertEqual(login.user.id, 123)
-                logedIn.fulfill()
+                logedInExpectation.fulfill()
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

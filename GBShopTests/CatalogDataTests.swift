@@ -14,14 +14,14 @@ class CatalogDataTests: XCTestCase {
         let requestFactory = RequestFactory()
         let catalogData = requestFactory.makeCatalogRequestFactory()
         let fakeData = FakeData()
-        let catalog = expectation(description: "Got Catalog")
+        let getCatalogExpectation = expectation(description: "Got Catalog")
         
         catalogData.getCatalog(pageNumber: fakeData.pageNumber,
                                categoryId: fakeData.categoryId) { response in
             switch response.result {
             case .success(let catalogResponse):
                 XCTAssertEqual(catalogResponse.products[0].productId, 123)
-                catalog.fulfill()
+                getCatalogExpectation.fulfill()
 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

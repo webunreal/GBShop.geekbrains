@@ -8,7 +8,18 @@
 import UIKit
 
 class UserInfoViewController: UIViewController {
-    public var user = UserInfo.shared.user
+    private let requestFactory: RequestFactory
+    private let user: User
+    
+    init(requestFactory: RequestFactory, user: User) {
+        self.requestFactory = requestFactory
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
@@ -187,8 +198,7 @@ class UserInfoViewController: UIViewController {
     }
     
     @objc private func changeUserData() {
-        let userDataViewController = UserDataViewController()
-        userDataViewController.controllerType = .changeUserData
+        let userDataViewController = UserDataViewController(requestFactory: requestFactory, userDataControllerType: .changeUserData)
         userDataViewController.modalPresentationStyle = .fullScreen
         self.present(userDataViewController, animated: true, completion: nil)
     }

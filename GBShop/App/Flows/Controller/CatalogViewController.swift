@@ -8,20 +8,31 @@
 import UIKit
 
 class CatalogViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private let requestFactory: RequestFactory
+    private let user: User
+    
+    init(requestFactory: RequestFactory, user: User) {
+        self.requestFactory = requestFactory
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private let tableView = UITableView()
     private var catalog: [CatalogProduct] = []
     private let catalogCellReusableIdentifier = "CatalogTableViewCell"
-    private let requestFactory = RequestFactory()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CatalogTableViewCell.self as AnyClass, forCellReuseIdentifier: catalogCellReusableIdentifier)
-        tableView.rowHeight = UITableView.automaticDimension
         setupViews()
         setupAutoLayout()
-        getProducts()
+        getProducts(pageNumber: 1, categoryId: 1)
     }
     
     private func setupViews() {
@@ -37,6 +48,7 @@ class CatalogViewController: UIViewController, UITableViewDelegate, UITableViewD
         view.backgroundColor = UIColor.white
         tableView.backgroundColor = UIColor.white
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = UITableView.automaticDimension
         view.addSubview(tableView)
     }
     
@@ -55,9 +67,9 @@ class CatalogViewController: UIViewController, UITableViewDelegate, UITableViewD
         ).isActive = true
     }
     
-    private func getProducts() {
+    private func getProducts(pageNumber: Int, categoryId: Int) {
         let catalogFactory = requestFactory.makeCatalogRequestFactory()
-        catalogFactory.getCatalog(pageNumber: 1, categoryId: 1) { response in
+        catalogFactory.getCatalog(pageNumber: pageNumber, categoryId: categoryId) { response in
             DispatchQueue.main.async {
                 switch response.result {
                 case .success(let products):
@@ -66,7 +78,7 @@ class CatalogViewController: UIViewController, UITableViewDelegate, UITableViewD
                 case .failure(let error):
                     let alert = UIAlertController(title: "Error", message: error.errorDescription, preferredStyle: UIAlertController.Style.alert)
                     alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default) { _ in
-                        self.getProducts()
+                        self.getProducts(pageNumber: pageNumber, categoryId: categoryId)
                     })
                     alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
                     self.present(alert, animated: true, completion: nil)
@@ -76,8 +88,13 @@ class CatalogViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc private func showUserInfo() {
-        let userInfoViewController = UserInfoViewController()
+        let userInfoViewController = UserInfoViewController(requestFactory: requestFactory, user: user)
         navigationController?.pushViewController(userInfoViewController, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let productViewController = ProductViewController(requestFactory: requestFactory, product: catalog[indexPath.row])
+        navigationController?.pushViewController(productViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,7 +107,7 @@ class CatalogViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if !catalog.isEmpty {
             cell.productNameLabel.text = catalog[indexPath.row].productName
-            cell.productPriceLabel.text = String(catalog[indexPath.row].price)
+            cell.productPriceLabel.text = String(catalog[indexPath.row].price) + " ₽"
         }
         return cell
     }

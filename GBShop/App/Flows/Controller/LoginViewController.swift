@@ -8,6 +8,17 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    private let requestFactory: RequestFactory
+    
+    init(requestFactory: RequestFactory) {
+        self.requestFactory = requestFactory
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +72,6 @@ class LoginViewController: UIViewController {
     }()
     
     private var textFieldHeight: CGFloat = 40
-    private let requestFactory = RequestFactory()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -228,9 +238,9 @@ class LoginViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch response.result {
                     case .success(let login):
-                        let navigationController = UINavigationController(rootViewController: CatalogViewController())
+                        let user = login.user
+                        let navigationController = UINavigationController(rootViewController: CatalogViewController(requestFactory: self.requestFactory, user: user))
                         navigationController.modalPresentationStyle = .fullScreen
-                        UserInfo.shared.user = login.user
                         self.present(navigationController, animated: true, completion: nil)
                     case .failure(let error):
                         let alert = UIAlertController(title: "Error", message: error.errorDescription, preferredStyle: UIAlertController.Style.alert)
@@ -247,8 +257,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func signUp() {
-        let userDataViewController = UserDataViewController()
-        userDataViewController.controllerType = .signUp
+        let userDataViewController = UserDataViewController(requestFactory: requestFactory, userDataControllerType: .signUp)
         userDataViewController.modalPresentationStyle = .fullScreen
         self.present(userDataViewController, animated: true, completion: nil)
     }

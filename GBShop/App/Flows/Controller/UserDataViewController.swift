@@ -9,12 +9,18 @@ import UIKit
 import Alamofire
 
 class UserDataViewController: UIViewController {
-    public enum ControllerType {
-        case signUp
-        case changeUserData
+    private let requestFactory: RequestFactory
+    private let userDataControllerType: UserDataControllerType
+    
+    init(requestFactory: RequestFactory, userDataControllerType: UserDataControllerType) {
+        self.requestFactory = requestFactory
+        self.userDataControllerType = userDataControllerType
+        super.init(nibName: nil, bundle: nil)
     }
     
-    public var controllerType: ControllerType?
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
@@ -82,7 +88,6 @@ class UserDataViewController: UIViewController {
     private let edgeSpace: CGFloat = 20
     private let spaceBetweenTitleAndTextField: CGFloat = 5
     private let spaceBetweenTextFields: CGFloat = 10
-    private let requestFactory = RequestFactory()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,15 +107,13 @@ class UserDataViewController: UIViewController {
             height: view.frame.size.height
         )
         
-        switch controllerType {
+        switch userDataControllerType {
         case .signUp:
             titleLabel.text = "SignUp"
             signUpButton.setTitle("SignUp", for: .normal)
         case .changeUserData:
             titleLabel.text = "Change User Data"
             signUpButton.setTitle("Save", for: .normal)
-        case .none:
-            break
         }
         
         usernameTextFieldTitle = makeTextFieldTitle(title: "Username")
@@ -397,7 +400,7 @@ class UserDataViewController: UIViewController {
     
     @objc private func signUp() {
         if let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text, let creditCard = creditCardTextField.text, let bio = bioTextField.text {
-            switch controllerType {
+            switch userDataControllerType {
             case .signUp:
                 let signUpFactory = requestFactory.makeSignUpRequestFactory()
                 signUpFactory.signUp(userId: 123, login: username, password: password, email: email, gender: gender, creditCard: creditCard, bio: bio) { response in
@@ -422,14 +425,12 @@ class UserDataViewController: UIViewController {
                         }
                     }
                 }
-            case .none:
-                return
             }
         }
     }
     
     private func showLoginViewController() {
-        let loginViewController = LoginViewController()
+        let loginViewController = LoginViewController(requestFactory: requestFactory)
         loginViewController.modalPresentationStyle = .fullScreen
         self.present(loginViewController, animated: true, completion: nil)
     }

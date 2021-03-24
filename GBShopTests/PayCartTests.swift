@@ -9,18 +9,18 @@ import XCTest
 import Alamofire
 @testable import GBShop
 
-class PayBasketTests: XCTestCase {
+class PayCartTests: XCTestCase {
     func testPayBasket() {
         let requestFactory = RequestFactory()
-        let payBasketData = requestFactory.makePayBasketRequestFactory()
+        let payCartData = requestFactory.makePayCartRequestFactory()
         let fakeData = FakeData()
-        let payBasketExpectation = expectation(description: "Basked paid")
+        let payCartExpectation = expectation(description: "Basked paid")
         
-        payBasketData.payBasket(userId: fakeData.userId) { response in
+        payCartData.payCart(userId: fakeData.userId) { response in
             switch response.result {
-            case .success(let payBasketResponse):
-                XCTAssertEqual(payBasketResponse.result, 1)
-                payBasketExpectation.fulfill()
+            case .success(let payCartResponse):
+                XCTAssertEqual(payCartResponse.result, 1)
+                payCartExpectation.fulfill()
 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

@@ -1,5 +1,5 @@
 //
-//  AddToBasket.swift
+//  AddToCart.swift
 //  GBShop
 //
 //  Created by Nikolai Ivanov on 02.03.2021.
@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-class AddToBasket: AbstractRequestFactory {
+class AddToCart: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
@@ -27,19 +27,19 @@ class AddToBasket: AbstractRequestFactory {
     }
 }
 
-extension AddToBasket: AddToBasketRequestFactory {
-    func addToBasket(
+extension AddToCart: AddToCartRequestFactory {
+    func addToCart(
         productId: Int,
         quantity: Int,
-        completionHandler: @escaping (AFDataResponse<AddToBasketResult>) -> Void
+        completionHandler: @escaping (AFDataResponse<AddToCartResult>) -> Void
     ) {
-        let requestModel = AddToBasket(baseUrl: baseUrl, productId: productId, quantity: 1)
+        let requestModel = AddToCart(baseUrl: baseUrl, productId: productId, quantity: 1)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
 
-extension AddToBasket {
-    struct AddToBasket: RequestRouter {
+extension AddToCart {
+    struct AddToCart: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
         let path: String = "add_to_basket"

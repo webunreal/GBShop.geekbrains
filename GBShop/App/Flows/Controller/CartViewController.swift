@@ -11,6 +11,7 @@ final class CartViewController: UIViewController, UITableViewDelegate, UITableVi
 
     private let requestFactory: RequestFactory
     private let user: User
+    private let analytics = AppAnalytics()
     private let cartCellReusableIdentifier = "CartTableViewCell"
     private var cart: GetCartResult?
     private lazy var cartTableView: CartTableView = {
@@ -55,6 +56,7 @@ final class CartViewController: UIViewController, UITableViewDelegate, UITableVi
             DispatchQueue.main.async {
                 switch response.result {
                 case .success:
+                    self.analytics.cartIsPaid()
                     let navigationController = UINavigationController(rootViewController: CatalogViewController(requestFactory: self.requestFactory, user: self.user))
                     navigationController.modalPresentationStyle = .fullScreen
                     self.present(navigationController, animated: true, completion: nil)
@@ -108,8 +110,31 @@ final class CartViewController: UIViewController, UITableViewDelegate, UITableVi
         if !cartProducts.isEmpty {
             cell.productNameLabel.text = cartProducts[indexPath.row].productName
             cell.productPriceLabel.text = String(cartProducts[indexPath.row].price) + " ₽"
+            
+            cell.deleteFromCartButton.tag = indexPath.row
+            cell.deleteFromCartButton.addTarget(self, action: #selector(deleteFromCart), for: .touchUpInside)
         }
         return cell
+    }
+    
+    @objc private func deleteFromCart(sender: UIButton) {
+        let deleteFromCartFactory = requestFactory.makeDeleteFromCartRequestFactory()
+        guard let productId = cart?.contents[sender.tag].productId,
+              let productName = cart?.contents[sender.tag].productName else { return }
+        
+        deleteFromCartFactory.deleteFromCart(productId: productId) { response in
+            DispatchQueue.main.async {
+                switch response.result {
+                case .success:
+                    self.analytics.productIsDeletedFromCart(productName: productName)
+                    self.cartTableView.tableView.reloadData()
+                case .failure(let error):
+                    let alert = UIAlertController(title: "Error", message: error.errorDescription, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
 
 }

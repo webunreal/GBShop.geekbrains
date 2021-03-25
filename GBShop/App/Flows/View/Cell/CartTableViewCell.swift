@@ -24,6 +24,15 @@ final class CartTableViewCell: UITableViewCell {
         label.textColor = .systemGray
         return label
     }()
+    
+    private(set) lazy var deleteFromCartButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let buttonImage = UIImage(systemName: "trash")?.withRenderingMode(.alwaysTemplate)
+        button.setImage(buttonImage, for: .normal)
+        button.tintColor = .systemRed
+        return button
+    }()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -36,6 +45,7 @@ final class CartTableViewCell: UITableViewCell {
         
         contentView.addSubview(productNameLabel)
         contentView.addSubview(productPriceLabel)
+        contentView.addSubview(deleteFromCartButton)
         
         setupAutoLayout()
     }
@@ -43,13 +53,14 @@ final class CartTableViewCell: UITableViewCell {
     private func setupAutoLayout() {
         setupProductNameLabelConstrains()
         setupProductPriceLabelConstrains()
+        setupDeleteFromCartButtonConstrains()
     }
     
     private func setupProductNameLabelConstrains() {
         NSLayoutConstraint.activate([
             productNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             productNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            productNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10)
+            productNameLabel.trailingAnchor.constraint(equalTo: deleteFromCartButton.leadingAnchor, constant: -10)
         ])
     }
     
@@ -57,9 +68,17 @@ final class CartTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             productPriceLabel.topAnchor.constraint(equalTo: productNameLabel.bottomAnchor, constant: 10),
             productPriceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            productPriceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10),
+            productPriceLabel.trailingAnchor.constraint(equalTo: deleteFromCartButton.leadingAnchor, constant: -10),
             productPriceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
-        
+    }
+    
+    private func setupDeleteFromCartButtonConstrains() {
+        NSLayoutConstraint.activate([
+            deleteFromCartButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            deleteFromCartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            deleteFromCartButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            deleteFromCartButton.widthAnchor.constraint(equalToConstant: 50)
+        ])
     }
 }

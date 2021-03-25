@@ -11,15 +11,18 @@ final class ProductViewController: UIViewController, UITableViewDelegate, UITabl
     
     private let requestFactory: RequestFactory
     private let product: CatalogProduct
+    private let user: User
+    private let analytics = AppAnalytics()
     private var productReviews: [Review] = []
     private let catalogCellReusableIdentifier = "ProductReviewTableViewCell"
     private lazy var productTableView: ProductTableView = {
         ProductTableView()
     }()
     
-    init(requestFactory: RequestFactory, product: CatalogProduct) {
+    init(requestFactory: RequestFactory, product: CatalogProduct, user: User) {
         self.requestFactory = requestFactory
         self.product = product
+        self.user = user
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,6 +42,12 @@ final class ProductViewController: UIViewController, UITableViewDelegate, UITabl
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
         view.backgroundColor = UIColor.white
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Add Review",
+            style: .plain,
+            target: self,
+            action: #selector(showAddProductReviewController))
+        
         productTableView.tableView.delegate = self
         productTableView.tableView.dataSource = self
         productTableView.tableView.register(ProductReviewTableViewCell.self as AnyClass, forCellReuseIdentifier: catalogCellReusableIdentifier)
@@ -48,6 +57,13 @@ final class ProductViewController: UIViewController, UITableViewDelegate, UITabl
         productTableView.addToCartButton.addTarget(self, action: #selector(addToCart), for: .touchUpInside)
         
         getProductReviews()
+        
+        analytics.concreteProductIsOpened(productName: product.productName)
+    }
+    
+    @objc private func showAddProductReviewController() {
+        let addProductReviewViewController = AddProductReviewViewController(requestFactory: requestFactory, user: user)
+        navigationController?.pushViewController(addProductReviewViewController, animated: true)
     }
     
     @objc func addToCart(sender: UIButton) {

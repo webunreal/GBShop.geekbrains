@@ -6,14 +6,14 @@
 //
 
 import UIKit
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-//    let requestFactory = RequestFactory()
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        true
+        FirebaseApp.configure()
+        return true
     }
 
     // MARK: UISceneSession Lifecycle

@@ -12,6 +12,7 @@ final class UserDataViewController: UIViewController {
     
     private let requestFactory: RequestFactory
     private let userDataControllerType: UserDataControllerType
+    private let analytics = AppAnalytics()
     
     private lazy var userDataView: UserDataView = {
         UserDataView(userDataControllerType: userDataControllerType)
@@ -58,6 +59,7 @@ final class UserDataViewController: UIViewController {
                     DispatchQueue.main.async {
                         switch response.result {
                         case .success:
+                            self.analytics.signedUp()
                             self.showLoginViewController()
                         case .failure(let error):
                             self.showErrorAlert(error: error)

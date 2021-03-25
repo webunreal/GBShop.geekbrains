@@ -11,6 +11,7 @@ final class CatalogViewController: UIViewController, UITableViewDelegate, UITabl
     
     private let requestFactory: RequestFactory
     private let user: User
+    private let analytics = AppAnalytics()
     private var catalog: [CatalogProduct] = []
     private let catalogCellReusableIdentifier = "CatalogTableViewCell"
     private lazy var catalogTableView: CatalogTableView = {
@@ -52,7 +53,9 @@ final class CatalogViewController: UIViewController, UITableViewDelegate, UITabl
         catalogTableView.tableView.delegate = self
         catalogTableView.tableView.dataSource = self
         catalogTableView.tableView.register(CatalogTableViewCell.self as AnyClass, forCellReuseIdentifier: catalogCellReusableIdentifier)
-        getProducts(pageNumber: 1, categoryId: 1)  
+        getProducts(pageNumber: 1, categoryId: 1)
+        
+        analytics.productCatalogIsOpened()
     }
     
     private func getProducts(pageNumber: Int, categoryId: Int) {
@@ -86,7 +89,7 @@ final class CatalogViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let productViewController = ProductViewController(requestFactory: requestFactory, product: catalog[indexPath.row])
+        let productViewController = ProductViewController(requestFactory: requestFactory, product: catalog[indexPath.row], user: user)
         navigationController?.pushViewController(productViewController, animated: true)
     }
     
@@ -109,11 +112,12 @@ final class CatalogViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @objc func addToCart(sender: UIButton) {
-        let addTocartFactory = requestFactory.makeAddToCartRequestFactory()
-        addTocartFactory.addToCart(productId: catalog[sender.tag].productId, quantity: 1) { response in
+        let addToCartFactory = requestFactory.makeAddToCartRequestFactory()
+        addToCartFactory.addToCart(productId: catalog[sender.tag].productId, quantity: 1) { response in
             DispatchQueue.main.async {
                 switch response.result {
                 case .success:
+                    self.analytics.productAddedToCart(productName: self.catalog[sender.tag].productName)
                     self.catalogTableView.tableView.reloadData()
                 case .failure(let error):
                     let alert = UIAlertController(title: "Error", message: error.errorDescription, preferredStyle: UIAlertController.Style.alert)

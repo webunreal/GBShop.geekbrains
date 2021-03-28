@@ -12,31 +12,31 @@ struct AppAnalytics {
     
     public func successfulLogIn() {
         Analytics.logEvent(AnalyticsEventLogin, parameters: [
-            AnalyticsParameterItemName: "Successful LogIn",
+            AnalyticsParameterItemName: "Successful LogIn"
         ])
     }
     
     public func unsuccessfulLogIn() {
         Analytics.logEvent("Unsuccessful LogIn", parameters: [
-            AnalyticsParameterItemName: "Unsuccessful LogIn",
+            AnalyticsParameterItemName: "Unsuccessful LogIn"
         ])
     }
     
     public func logedOut() {
         Analytics.logEvent("Log Out", parameters: [
-            AnalyticsParameterItemName: "Logged Out",
+            AnalyticsParameterItemName: "Logged Out"
         ])
     }
     
     public func signedUp() {
         Analytics.logEvent(AnalyticsEventSignUp, parameters: [
-            AnalyticsParameterItemName: "Signed Up",
+            AnalyticsParameterItemName: "Signed Up"
         ])
     }
     
     public func productCatalogIsOpened() {
         Analytics.logEvent("Product Catalog Is Opened", parameters: [
-            AnalyticsParameterItemName: "Product Catalog Is Opened",
+            AnalyticsParameterItemName: "Product Catalog Is Opened"
         ])
     }
     

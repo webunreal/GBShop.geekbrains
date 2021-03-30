@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6008309B25FBDF9D00FF7872 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6008309A25FBDF9D00FF7872 /* CatalogViewController.swift */; };
+		600830A425FBE4D900FF7872 /* CatalogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600830A325FBE4D900FF7872 /* CatalogTableViewCell.swift */; };
+		600830A925FC06D300FF7872 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600830A825FC06D300FF7872 /* UserInfo.swift */; };
 		6052DACD25F5398D00715061 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6052DACC25F5398D00715061 /* LoginViewController.swift */; };
 		6052DAD525F539DB00715061 /* UserDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6052DAD425F539DB00715061 /* UserDataViewController.swift */; };
 		6052DADA25F539EE00715061 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6052DAD925F539EE00715061 /* UserInfoViewController.swift */; };
@@ -101,6 +104,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6008309A25FBDF9D00FF7872 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
+		600830A325FBE4D900FF7872 /* CatalogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogTableViewCell.swift; sourceTree = "<group>"; };
+		600830A825FC06D300FF7872 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		6052DACC25F5398D00715061 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6052DAD425F539DB00715061 /* UserDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewController.swift; sourceTree = "<group>"; };
 		6052DAD925F539EE00715061 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
@@ -208,12 +214,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6008309F25FBE29A00FF7872 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				600830A325FBE4D900FF7872 /* CatalogTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6052DACB25F5397100715061 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				6052DACC25F5398D00715061 /* LoginViewController.swift */,
 				6052DAD425F539DB00715061 /* UserDataViewController.swift */,
 				6052DAD925F539EE00715061 /* UserInfoViewController.swift */,
+				6008309A25FBDF9D00FF7872 /* CatalogViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -344,8 +359,10 @@
 		605F45DF25D2F17E0044ED81 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				6008309F25FBE29A00FF7872 /* View */,
 				6052DACB25F5397100715061 /* Controller */,
 				6052DADE25F558A300715061 /* Extension */,
+				600830A825FC06D300FF7872 /* UserInfo.swift */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -682,6 +699,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6008309B25FBDF9D00FF7872 /* CatalogViewController.swift in Sources */,
 				60F7F9E625E908C700BC12A2 /* AddProductReviewResult.swift in Sources */,
 				6052DAE025F558C400715061 /* UITextFieldExtension.swift in Sources */,
 				60E9C78C25D9352900D2FB38 /* RequestFactory.swift in Sources */,
@@ -717,6 +735,8 @@
 				60F7F9D925E8F6D100BC12A2 /* CatalogProduct.swift in Sources */,
 				60E9C77C25D934C400D2FB38 /* User.swift in Sources */,
 				60E9C7B725D943F600D2FB38 /* ChangeUserDataRequestFactory.swift in Sources */,
+				600830A925FC06D300FF7872 /* UserInfo.swift in Sources */,
+				600830A425FBE4D900FF7872 /* CatalogTableViewCell.swift in Sources */,
 				60F7FA3A25E9218600BC12A2 /* DeleteProductReviewRequestFactory.swift in Sources */,
 				60D7519325EECC9E00968C0A /* PayBasketRequestFactory.swift in Sources */,
 				60E9C7A525D93C6600D2FB38 /* SignUpResult.swift in Sources */,
